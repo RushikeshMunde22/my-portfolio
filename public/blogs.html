@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rushikesh Munde - The Tech Chronicles</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Tailwind Config for Custom Fonts/Animations -->
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+serif: ['Playfair Display', 'serif'],
+},
+animation: {
+'blob': 'blob 7s infinite',
+'in': 'fadeIn 0.3s ease-out',
+'zoom': 'zoomIn 0.3s ease-out',
+},
+keyframes: {
+blob: {
+'0%': { transform: 'translate(0px, 0px) scale(1)' },
+'33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+'66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+'100%': { transform: 'translate(0px, 0px) scale(1)' },
+},
+fadeIn: {
+'0%': { opacity: '0', transform: 'translateY(10px)' },
+'100%': { opacity: '1', transform: 'translateY(0)' },
+},
+zoomIn: {
+'0%': { opacity: '0', transform: 'scale(0.95)' },
+'100%': { opacity: '1', transform: 'scale(1)' },
+}
+}
+}
+}
+}
+</script>
+<style>
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background-color: rgba(156, 163, 175, 0.5);
+border-radius: 20px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+background-color: rgba(75, 85, 99, 0.5);
+}
+/* Perspective for 3D card */
+.perspective-1000 {
+perspective: 1000px;
+}
+/* Hide scrollbar when modal is open */
+body.modal-open {
+overflow: hidden;
+}
+</style>
+</head>
+<body id="app-body" class="bg-[#0a0a0f] text-slate-100 selection:bg-indigo-500 transition-colors duration-500 min-h-screen relative overflow-x-hidden font-sans">
+
+<!-- Navigation -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[90%] max-w-4xl">
+<div id="nav-container" class="rounded-full px-6 py-3 flex justify-between items-center shadow-2xl border backdrop-blur-xl bg-slate-900/80 border-slate-700/50 text-slate-100 transition-all duration-500">
+<!-- Brand -->
+<div onclick="goHome()" class="flex items-center gap-3 cursor-pointer group">
+<div id="brand-logo" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gradient-to-tr shadow-lg group-hover:rotate-12 transition-transform from-indigo-500 to-purple-600">R</div>
+<span class="font-serif font-bold text-lg hidden sm:block tracking-wide">Rushikesh Munde</span>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-2 sm:gap-4">
+<!-- Back to Home Button -->
+<a href="/" class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all bg-indigo-600 text-white hover:bg-indigo-700">
+<i data-lucide="home" class="w-3.5 h-3.5"></i>
+<span class="hidden sm:inline">Home</span>
+</a>
+<!-- Language -->
+<div id="lang-pill" class="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border bg-slate-800/50 border-slate-700 transition-colors duration-500">
+<i data-lucide="languages" class="w-3.5 h-3.5"></i>
+<select id="lang-select" class="bg-transparent outline-none cursor-pointer text-center font-bold appearance-none">
+<option value="en" class="text-black">ENG</option>
+<option value="hi" class="text-black">HIN</option>
+<option value="mr" class="text-black">MAR</option>
+</select>
+</div>
+<!-- Theme Toggle -->
+<button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full transition-all bg-slate-800 text-yellow-400 hover:bg-slate-700">
+<i data-lucide="sun" class="w-4 h-4"></i>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<div class="relative pt-32 pb-20 px-4 min-h-[85vh] flex items-center justify-center z-10 overflow-hidden">
+<!-- Background Blobs -->
+<div id="hero-blob" class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 pointer-events-none bg-indigo-600 transition-colors duration-500"></div>
+<div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<!-- Left: Text -->
+<div id="hero-text-container" class="space-y-8 text-center lg:text-left text-slate-100 transition-colors duration-500">
+<div id="welcome-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] border shadow-sm bg-indigo-950/30 border-indigo-500/30 text-indigo-300 transition-all duration-500">
+<i data-lucide="award" class="w-3.5 h-3.5"></i>
+<span id="welcome-text">Welcome</span>
+</div>
+<h1 id="hero-title" class="text-5xl sm:text-7xl font-serif font-bold leading-tight tracking-tight">The Tech Chronicles</h1>
+<p id="hero-subtitle" class="text-xl font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-slate-400 transition-colors duration-500">
+Welcome to Rushikesh's Blogs. A collection of my hackathons, learnings, and technological explorations.
+</p>
+<div id="hero-line" class="h-1 w-24 rounded-full mx-auto lg:mx-0 bg-indigo-500 transition-colors duration-500"></div>
+</div>
+<!-- Right: Interactive Image -->
+<div class="relative w-full max-w-lg mx-auto aspect-[4/3] perspective-1000 group cursor-pointer">
+<div id="hero-card" class="relative w-full h-full rounded-3xl overflow-hidden transition-all duration-700 ease-out transform shadow-2xl group-hover:scale-105 group-hover:rotate-1">
+<!-- Image 1: ex1 -->
+<img src="./certificates/ex1.png.png" alt="Default" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-0">
+<!-- Image 2: ex2 -->
+<img src="./certificates/ex2.png.png" alt="Hover" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+</div>
+</div>
+</div>
+</div>
+
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 relative z-10">
+<div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Blog cards will be injected here via JavaScript -->
+</div>
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="relative py-20 text-center overflow-hidden bg-[#050508] border-t border-white/5 transition-colors duration-500">
+<div id="footer-line" class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent transition-colors duration-500"></div>
+
+<!-- Horizontal RUSHIKESH Background Text -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+<h2 class="text-[8rem] md:text-[12rem] lg:text-[15rem] font-black opacity-5 leading-none text-white transition-colors duration-500 tracking-wider whitespace-nowrap">
+RUSHIKESH
+</h2>
+</div>
+
+<div class="relative z-10">
+<p id="footer-designed" class="text-sm tracking-widest uppercase mb-2 text-indigo-400 transition-colors duration-500">Designed & Developed by</p>
+<p class="font-serif text-xl font-bold">Rushikesh Balaji Munde</p>
+<p class="text-xs opacity-50 mt-4">© 2026 All Rights Reserved.</p>
+</div>
+</footer>
+
+<!-- Reading Modal -->
+<div id="reading-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-0 sm:p-4 overflow-hidden">
+<!-- Backdrop -->
+<div id="modal-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+<!-- Modal Content -->
+<div id="modal-content" class="relative w-full max-w-4xl h-[100vh] sm:h-[90vh] flex flex-col rounded-none sm:rounded-3xl shadow-2xl overflow-hidden animate-zoom bg-slate-900 text-slate-100">
+<!-- Header -->
+<div id="modal-header" class="absolute top-0 left-0 right-0 p-4 z-50 flex justify-between items-start bg-gradient-to-b from-slate-900/90 to-transparent backdrop-blur-sm">
+<button onclick="closeModal()" id="modal-close-btn" class="p-3 rounded-full backdrop-blur-md shadow-lg transition-transform hover:scale-110 bg-white/10 text-white hover:bg-white/20">
+<i data-lucide="x" class="w-6 h-6"></i>
+</button>
+<a id="modal-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform bg-indigo-600 text-white">
+<i data-lucide="globe" class="w-4 h-4"></i> Open Project
+</a>
+</div>
+<!-- Scrollable Area -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Hero Image -->
+<div class="h-[40vh] sm:h-[50vh] relative w-full">
+<img id="modal-hero-img" src="" alt="Hero" class="w-full h-full object-cover">
+<div id="modal-hero-overlay" class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent"></div>
+<div class="absolute bottom-6 left-6 sm:left-12 right-6">
+<span id="modal-category" class="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-3 shadow-sm bg-indigo-500 text-white">Category</span>
+<h1 id="modal-title" class="text-3xl sm:text-5xl font-serif font-bold leading-tight drop-shadow-md">Title</h1>
+</div>
+</div>
+<!-- Body -->
+<div class="px-6 sm:px-12 py-10 max-w-3xl mx-auto">
+<div id="modal-meta-border" class="flex items-center justify-between border-b pb-6 mb-8 border-slate-800">
+<div class="flex items-center gap-3">
+<div id="modal-avatar" class="w-10 h-10 rounded-full flex items-center justify-center font-bold bg-indigo-900 text-indigo-200">RM</div>
+<div>
+<p class="font-bold text-sm">Rushikesh Munde</p>
+<p id="modal-date" class="text-xs opacity-60">Date</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button id="share-btn" onclick="toggleShareMenu(event)" class="p-2 opacity-50 hover:opacity-100 transition-all relative">
+<i data-lucide="share-2" class="w-4 h-4"></i>
+</button>
+<button id="heart-btn" onclick="toggleHeart()" class="p-2 opacity-50 hover:opacity-100 transition-all">
+<i data-lucide="heart" class="w-4 h-4"></i>
+</button>
+</div>
+</div>
+
+<!-- Share Menu Popup -->
+<div id="share-menu" class="hidden absolute right-6 top-full mt-2 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl p-4 min-w-[200px] z-50">
+<p class="text-xs font-bold uppercase tracking-wider mb-3 text-slate-400">Share via</p>
+<div class="flex flex-col gap-2">
+<button onclick="shareVia('whatsapp')" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors text-left">
+<i data-lucide="message-circle" class="w-4 h-4 text-green-500"></i>
+<span class="text-sm">WhatsApp</span>
+</button>
+<button onclick="shareVia('email')" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors text-left">
+<i data-lucide="mail" class="w-4 h-4 text-blue-500"></i>
+<span class="text-sm">Email</span>
+</button>
+<button onclick="shareVia('copy')" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors text-left">
+<i data-lucide="link" class="w-4 h-4 text-indigo-500"></i>
+<span class="text-sm">Copy Link</span>
+</button>
+</div>
+</div>
+<div id="modal-body" class="prose lg:prose-xl font-serif leading-loose whitespace-pre-line prose-invert prose-p:text-slate-300 prose-headings:text-indigo-100">
+<!-- Content -->
+</div>
+<div id="modal-footer-link" class="hidden mt-12 p-6 rounded-2xl border text-center bg-slate-800 border-slate-700">
+<p class="font-bold mb-4">Want to see it in action?</p>
+<a id="modal-footer-btn" href="#" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-indigo-500 text-white">
+<i data-lucide="globe" class="w-4 h-4"></i> Visit Project Website
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- JavaScript Logic -->
+<script>
+// --- DATA ---
+const imageMap = {
+hackathon: "./certificates/WhatsApp Image 2026-02-06 at 3.39.24 PM (1).jpeg",
+relay: "./certificates/innoverse-code-relay-certificate.jpeg",
+ai: "./certificates/oracle-certificate.jpeg",
+glasses: "./certificates/WhatsApp Image 2026-02-06 at 3.38.42 PM.jpeg",
+code: "./certificates/WhatsApp Image 2026-02-06 at 3.38.45 PM.jpeg",
+art: "./certificates/WhatsApp Image 2026-02-06 at 3.38.43 PM.jpeg",
+pi: "./certificates/WhatsApp Image 2026-02-06 at 3.38.44 PM (2).jpeg",
+android: "./certificates/WhatsApp Image 2026-02-06 at 3.38.44 PM.jpeg",
+penguin: "./certificates/WhatsApp Image 2026-02-06 at 3.38.47 PM (1).jpeg",
+car_quote: "./certificates/WhatsApp Image 2026-02-06 at 3.38.47 PM.jpeg",
+building: "./certificates/WhatsApp Image 2026-02-06 at 3.38.46 PM.jpeg",
+exhibition: "./certificates/WhatsApp Image 2026-02-06 at 3.39.23 PM.jpeg",
+hero_default: "./certificates/WhatsApp Image 2026-02-06 at 3.38.44 PM (1).jpeg",
+hero_hover: "./certificates/WhatsApp Image 2026-02-06 at 3.38.45 PM.jpeg",
+};
+
+const getImageUrl = (key) => imageMap[key] || "https://placehold.co/800x600";
+
+const blogData = [
+{
+id: 1,
+imageKeyword: "hackathon",
+category: "Victory",
+date: "Nov 20, 2025",
+readTime: "4 min read",
+title: { en: "From Zero to 4th Rank: The Innoverse Hackathon Story", hi: "शून्य से 4थी रैंक तक: इनोवर्स हैकथॉन की कहानी", mr: "शून्यातून चौथ्या क्रमांकावर: इनोव्हर्स हॅकाथॉनची कथा" },
+excerpt: { en: "We entered as first-year students with zero experience. We left as winners. Here is the story of Team Lakshya.", hi: "हमने बिना किसी अनुभव के प्रथम वर्ष के छात्रों के रूप में प्रवेश किया। हम विजेता बनकर निकले।", mr: "आम्ही अनुभवाशिवाय प्रथम वर्षाचे विद्यार्थी म्हणून प्रवेश केला. आम्ही विजेते म्हणून बाहेर पडलो." },
+content: { en: `The energy at the Innoverse 2.0 Hackathon was electric. We were just first-semester students, standing amidst seniors with years of coding experience. The challenge? Build something impactful in just 6 hours.\n\nWe decided to build a Healthcare Website—a tool to help people remember their medication and analyze symptoms. We didn't have fancy tech stacks, but we had grit. We learned on the fly, debugging errors seconds before the deadline.\n\nWhen the judges announced "Team Lakshya" for the 4th Rank out of 37 teams, the cheering was deafening. It wasn't just a rank; it was validation that age doesn't matter in tech, only passion does.`, hi: `इनोवर्स 2.0 हैकथॉन में ऊर्जा बिजली जैसी थी। हम वरिष्ठ छात्रों के बीच खड़े थे। चुनौती? केवल 6 घंटे में कुछ प्रभावशाली बनाना। हमने एक हेल्थकेयर वेबसाइट बनाने का फैसला किया।`, mr: `इनोव्हर्स २.० हॅकाथॉनमधील ऊर्जा जबरदस्त होती. आम्ही सिनियर्सच्या गर्दीत उभे होतो. आव्हान? फक्त ६ तासांत काहीतरी परिणामकारक बनवणे. आम्ही हेल्थकेअर वेबसाइट बनवण्याचे ठरवले.` }
+},
+{
+id: 2,
+imageKeyword: "exhibition",
+category: "System Design",
+date: "Feb 06, 2026",
+readTime: "5 min read",
+link: "https://rushikeshmunde22.github.io/whatsappproject.rm/",
+title: { en: "Bringing WhatsApp to Life: The 3D Architecture Model", hi: "व्हाट्सएप को जीवंत बनाना: 3डी आर्किटेक्चर मॉडल", mr: "व्हॉट्सॲपला जिवंत करणे: ३डी आर्किटेक्चर मॉडेल" },
+excerpt: { en: "How do you explain System Design without a computer? We built a physical 3D model of WhatsApp's backend using cardboard.", hi: "आप कंप्यूटर के बिना सिस्टम डिज़ाइन की व्याख्या कैसे करते हैं? हमने कार्डबोर्ड का उपयोग करके व्हाट्सएप के बैकएंड का एक भौतिक 3डी मॉडल बनाया।", mr: "तुम्ही कॉम्प्युटरशिवाय सिस्टम डिझाइन कसे समजावून सांगाल? आम्ही कार्डबोर्ड वापरून व्हॉट्सॲपच्या बॅकएंडचे भौतिक ३डी मॉडेल बनवले." },
+content: { en: `Most people use WhatsApp, but few know how it works. For our college exhibition, Team Lakshya decided to do something different. Instead of just a PowerPoint presentation, we built a physical "Engine Room" using cardboard and creativity.\n\nWe visualized the entire journey of a message:\n1. **Local Encryption:** How the message locks on your phone.\n2. **Server Queue:** How it travels through the cloud.\n3. **Delivery:** How it reaches the recipient.\n\nWe even built a companion simulation website (click the link above to try it!) that shows the real-time status of a message. It was a perfect blend of physical craft and digital logic. Standing there explaining SSL/TLS encryption with a cardboard model to the judges was a moment of pure pride.`, hi: `ज़्यादातर लोग व्हाट्सएप इस्तेमाल करते हैं, लेकिन कम ही लोग जानते हैं कि यह कैसे काम करता है। हमारी कॉलेज प्रदर्शनी के लिए, टीम लक्ष्य ने कुछ अलग करने का फैसला किया। सिर्फ पावरपॉइंट प्रेजेंटेशन के बजाय, हमने कार्डबोर्ड का इस्तेमाल करके एक भौतिक "इंजन रूम" बनाया।`, mr: `बहुतेक लोक व्हॉट्सॲप वापरतात, पण ते कसे काम करते हे फार कमी लोकांना माहीत आहे. आमच्या कॉलेज प्रदर्शनासाठी, टीम लक्ष्याने काहीतरी वेगळे करण्याचा निर्णय घेतला. फक्त पॉवरपॉइंट प्रेझेंटेशनऐवजी, आम्ही कार्डबोर्ड वापरून एक भौतिक "इंजिन रूम" बनवले.` }
+},
+{
+id: 3,
+imageKeyword: "penguin",
+category: "Mindset",
+date: "Feb 07, 2026",
+readTime: "2 min read",
+title: { en: "Be Different: The Philosophy of Standing Out", hi: "अलग बनो: भीड़ से अलग दिखने का दर्शन", mr: "वेगळे व्हा: गर्दीतून वेगळे दिसण्याचे तत्वज्ञान" },
+excerpt: { en: "In a world full of copies, be the original. Why following the herd is the fastest way to mediocrity.", hi: "प्रतियों से भरी दुनिया में, मूल बनें। भीड़ का अनुसरण करना औसत दर्जे का सबसे तेज़ तरीका क्यों है।", mr: "प्रतिकांच्या जगात, मूळ बना. गर्दीच्या मागे जाणे हा सामान्यतेचा सर्वात वेगवान मार्ग का आहे." },
+content: { en: `I saw this image of a lone penguin standing away from the colony, staring at the vast emptiness. It struck a chord.\n\nIn engineering, it's easy to copy code. It's easy to follow the standard path. But the biggest breakthroughs come from those who dare to walk alone. Being "Different" isn't just about being weird; it's about thinking laterally. It's about asking "Why?" when everyone else is saying "Okay."\n\nDon't be afraid to be the lone penguin. The view is better when you aren't staring at someone else's back.`, hi: `मैंने कॉलोनी से दूर खड़े एक अकेले पेंगुइन की यह छवि देखी। इसने दिल को छू लिया। इंजीनियरिंग में, कोड कॉपी करना आसान है। लेकिन सबसे बड़ी सफलताएं उन्हें मिलती हैं जो अकेले चलने की हिम्मत करते हैं।`, mr: `मी कॉलनीपासून दूर उभ्या असलेल्या एका एकाकी पेंग्विनची ही प्रतिमा पाहिली. याने मनाला स्पर्श केला. अभियांत्रिकीमध्ये, कोड कॉपी करणे सोपे आहे. पण सर्वात मोठी प्रगती त्यांनाच मिळते जे एकटे चालण्याचे धाडस करतात.` }
+},
+{
+id: 4,
+imageKeyword: "car_quote",
+category: "Motivation",
+date: "Feb 08, 2026",
+readTime: "2 min read",
+title: { en: "Dust and Wisdom: If You Fail, Congratulations", hi: "धूल और ज्ञान: यदि आप असफल होते हैं, तो बधाई", mr: "धूळ आणि शहाणपण: जर तुम्ही अयशस्वी झालात, तर अभिनंदन" },
+excerpt: { en: "Most people don't even try. Failure is just proof that you had the courage to attempt something difficult.", hi: "ज्यादातर लोग कोशिश भी नहीं करते। असफलता सिर्फ इस बात का सबूत है कि आपमें कुछ मुश्किल करने की हिम्मत थी।", mr: "बहुतेक लोक प्रयत्नही करत नाहीत. अपयश हा फक्त पुरावा आहे की तुमच्यात काहीतरी कठीण करण्याचे धाडस होते." },
+content: { en: `I saw a dirty car with a message written in the dust: "If you fail, congratulations. Most people don't even try."\n\nIt stopped me in my tracks. We are so afraid of compilation errors, of bugs, of rejected projects. But a bug means you wrote code. A rejection means you submitted an idea.\n\nThe only true failure is a blank text editor. Keep trying. Keep failing. Keep moving.`, hi: `मैंने धूल में लिखा एक संदेश देखा: "यदि आप असफल होते हैं, तो बधाई हो। ज्यादातर लोग कोशिश भी नहीं करते।" हम संकलन त्रुटियों से इतना डरते हैं। लेकिन एक बग का मतलब है कि आपने कोड लिखा है।`, mr: `मी धुळीत लिहिलेला एक संदेश पाहिला: "जर तुम्ही अयशस्वी झालात, तर अभिनंदन. बहुतेक लोक प्रयत्नही करत नाहीत." आपण त्रुटींना खूप घाबरतो. पण बग म्हणजे तुम्ही कोड लिहिला आहे.` }
+},
+{
+id: 5,
+imageKeyword: "code",
+category: "Professional",
+date: "Feb 05, 2026",
+readTime: "3 min read",
+title: { en: "The Art of Code: Entering the Matrix", hi: "कोड की कला: मैट्रिक्स में प्रवेश", mr: "कोडची कला: मॅट्रिक्समध्ये प्रवेश" },
+excerpt: { en: "It's not just text on a screen. It's a conversation with the machine. My reflections on professional software development.", hi: "यह सिर्फ स्क्रीन पर टेक्स्ट नहीं है। यह मशीन के साथ बातचीत है। पेशेवर सॉफ्टवेयर विकास पर मेरे विचार।", mr: "हे फक्त स्क्रीनवरील मजकूर नाही. हा मशीनशी संवाद आहे. व्यावसायिक सॉफ्टवेअर विकासावर माझे विचार." },
+content: { en: `Looking at a screen full of green syntax highlighting on a dark background feels like home. This is where ideas become reality.\n\nI've realized that professional coding isn't just about making it work; it's about making it maintainable. It's about writing logic so clean that the next developer reads it like poetry. Every function is a small machine, and we are the architects.`, hi: `काले बैकग्राउंड पर हरे सिंटैक्स को देखना घर जैसा लगता है। यहीं विचार हकीकत बनते हैं। मैंने महसूस किया है कि पेशेवर कोडिंग केवल इसे काम करने के बारे में नहीं है; यह इसे बनाए रखने के बारे में है।`, mr: `काळ्या पार्श्वभूमीवर हिरव्या सिंटॅक्सकडे पाहणे घरासारखे वाटते. इथेच कल्पना सत्यात उतरतात. मला समजले आहे की प्रोफेशनल कोडिंग फक्त ते काम करण्याबद्दल नाही; तर ते टिकवून ठेवण्याबद्दल आहे.` }
+},
+{
+id: 6,
+imageKeyword: "building",
+category: "Perspective",
+date: "Feb 04, 2026",
+readTime: "2 min read",
+title: { en: "Looking Up: Perspective Changes Everything", hi: "ऊपर देखना: परिप्रेक्ष्य सब कुछ बदल देता है", mr: "वर पाहणे: दृष्टीकोन सर्व काही बदलतो" },
+excerpt: { en: "Sometimes you need to look away from the screen and look up at the world. Architecture inspires code.", hi: "कभी-कभी आपको स्क्रीन से दूर देखने और दुनिया को ऊपर देखने की जरूरत होती है। वास्तुकला कोड को प्रेरित करती है।", mr: "कधीकधी तुम्हाला स्क्रीनवरून नजर हटवून जगाकडे वर पाहण्याची गरज असते. आर्किटेक्चर कोडला प्रेरणा देते." },
+content: { en: `I took a photo looking up at a building against the sky. The structure, the grid, the stability—it reminded me of good software architecture.\n\nJust like a building needs a strong foundation to reach the sky, our applications need strong backend logic to scale. You can't patch a bad foundation with good paint, and you can't fix bad code with a nice UI.`, hi: `मैंने आकाश के खिलाफ एक इमारत को ऊपर देखते हुए एक तस्वीर ली। संरचना, ग्रिड, स्थिरता - इसने मुझे अच्छे सॉफ्टवेयर आर्किटेक्चर की याद दिला दी।`, mr: `मी आकाशाच्या विरुद्ध एका इमारतीकडे वर पाहताना एक फोटो काढला. रचना, ग्रिड, स्थिरता - याने मला चांगल्या सॉफ्टवेअर आर्किटेक्चरची आठवण करून दिली.` }
+},
+{
+id: 7,
+imageKeyword: "relay",
+category: "Teamwork",
+date: "Nov 19, 2025",
+readTime: "3 min read",
+title: { en: "The 60-Second Sprint: Code Relay", hi: "60 सेकंड की दौड़: कोड रिले", mr: "६० सेकंदांची शर्यत: कोड रिले" },
+excerpt: { en: "Writing code in a relay race. 1 minute per person. Total chaos, total fun.", hi: "रिले दौड़ में कोड लिखना। प्रति व्यक्ति 1 मिनट। पूरी अराजकता, पूरा मज़ा।", mr: "रिले शर्यतीत कोड लिहिणे. प्रति व्यक्ती १ मिनिट. संपूर्ण गोंधळ, संपूर्ण मजा." },
+content: { en: `The Code Relay at Innoverse was a test of nerves. Writing a C program where you have to switch seats every minute forces you to communicate. It taught me that code readability is a survival skill!`, hi: `इनोवर्स में कोड रिले नसों की परीक्षा थी। एक सी प्रोग्राम लिखना जहां आपको हर मिनट सीट बदलनी पड़ती है, आपको संवाद करने के लिए मजबूर करता है।`, mr: `इनोव्हर्समधील कोड रिले ही संयमाची परीक्षा होती. C प्रोग्राम लिहिणे जिथे तुम्हाला दर मिनिटाला जागा बदलावी लागते, हे तुम्हाला संवाद साधण्यास भाग पाडते.` }
+},
+{
+id: 8,
+imageKeyword: "ai",
+category: "Learning",
+date: "Dec 22, 2025",
+readTime: "5 min read",
+title: { en: "Oracle AI: Understanding the Brain", hi: "ओरेकल एआई: मस्तिष्क को समझना", mr: "ओरॅकल एआय: मेंदू समजून घेणे" },
+excerpt: { en: "My journey into Large Language Models and getting certified by Oracle.", hi: "लार्ज लैंग्वेज मॉडल में मेरी यात्रा और ओरेकल द्वारा प्रमाणित होना।", mr: "लार्ज लँग्वेज मॉडेल्समधील माझा प्रवास आणि ओरॅकलकडून प्रमाणित होणे." },
+content: { en: `Getting certified in Oracle Cloud Infrastructure AI Foundations wasn't just about a badge. It was about demystifying the "magic" of AI and understanding the math behind the miracle.`, hi: `ओरेकल क्लाउड इंफ्रास्ट्रक्चर एआई फ़ाउंडेशन में प्रमाणित होना केवल एक बैज के बारे में नहीं था। यह एआई के "जादू" को समझने के बारे में था।`, mr: `ओरॅकल क्लाउड इन्फ्रास्ट्रक्चर एआय फाऊंडेशन्समध्ये प्रमाणित होणे हे फक्त बॅजबद्दल नव्हते. हे एआयची "जादू" उलगडण्याबद्दल होते.` }
+}
+];
+
+// --- STATE ---
+let theme = 'dark';
+let lang = 'en';
+
+// --- ELEMENTS ---
+const body = document.getElementById('app-body');
+const themeToggle = document.getElementById('theme-toggle');
+const langSelect = document.getElementById('lang-select');
+const blogGrid = document.getElementById('blog-grid');
+const modal = document.getElementById('reading-modal');
+
+// --- THEME LOGIC ---
+function updateTheme() {
+if (theme === 'dark') {
+body.classList.remove('bg-[#fffbf7]', 'text-slate-900', 'selection:bg-rose-500');
+body.classList.add('bg-[#0a0a0f]', 'text-slate-100', 'selection:bg-indigo-500', 'dark');
+document.getElementById('nav-container').classList.replace('bg-white/80', 'bg-slate-900/80');
+document.getElementById('nav-container').classList.replace('border-slate-200/50', 'border-slate-700/50');
+document.getElementById('nav-container').classList.replace('text-slate-800', 'text-slate-100');
+document.getElementById('brand-logo').classList.replace('from-orange-500', 'from-indigo-500');
+document.getElementById('brand-logo').classList.replace('to-rose-500', 'to-purple-600');
+document.getElementById('brand-logo').classList.remove('text-white');
+document.getElementById('lang-pill').classList.replace('bg-orange-50', 'bg-slate-800/50');
+document.getElementById('lang-pill').classList.replace('border-orange-200', 'border-slate-700');
+document.getElementById('lang-pill').classList.remove('text-orange-600');
+themeToggle.classList.replace('bg-orange-100', 'bg-slate-800');
+themeToggle.classList.replace('text-orange-600', 'text-yellow-400');
+themeToggle.classList.replace('hover:bg-orange-200', 'hover:bg-slate-700');
+themeToggle.innerHTML = '<i data-lucide="sun" class="w-4 h-4"></i>';
+document.getElementById('hero-blob').classList.replace('bg-rose-400', 'bg-indigo-600');
+document.getElementById('hero-text-container').classList.replace('text-slate-900', 'text-slate-100');
+document.getElementById('welcome-badge').classList.replace('bg-white', 'bg-indigo-950/30');
+document.getElementById('welcome-badge').classList.replace('border-rose-200', 'border-indigo-500/30');
+document.getElementById('welcome-badge').classList.replace('text-rose-600', 'text-indigo-300');
+document.getElementById('hero-subtitle').classList.replace('text-slate-600', 'text-slate-400');
+document.getElementById('hero-line').classList.replace('bg-rose-500', 'bg-indigo-500');
+document.getElementById('footer').classList.replace('bg-white', 'bg-[#050508]');
+document.getElementById('footer').classList.replace('border-slate-100', 'border-white/5');
+document.getElementById('footer-line').classList.replace('via-rose-500/50', 'via-indigo-500/50');
+document.getElementById('footer-designed').classList.replace('text-rose-500', 'text-indigo-400');
+document.getElementById('modal-content').classList.replace('bg-[#fffbf7]', 'bg-slate-900');
+document.getElementById('modal-content').classList.replace('text-slate-900', 'text-slate-100');
+document.getElementById('modal-header').classList.replace('from-white/90', 'from-slate-900/90');
+document.getElementById('modal-close-btn').classList.replace('bg-black/5', 'bg-white/10');
+document.getElementById('modal-close-btn').classList.replace('text-black', 'text-white');
+document.getElementById('modal-close-btn').classList.replace('hover:bg-black/10', 'hover:bg-white/20');
+document.getElementById('modal-link-btn').classList.replace('bg-rose-600', 'bg-indigo-600');
+document.getElementById('modal-hero-overlay').classList.replace('from-[#fffbf7]', 'from-slate-900');
+document.getElementById('modal-category').classList.replace('bg-rose-500', 'bg-indigo-500');
+document.getElementById('modal-meta-border').classList.replace('border-slate-200', 'border-slate-800');
+document.getElementById('modal-avatar').classList.replace('bg-rose-100', 'bg-indigo-900');
+document.getElementById('modal-avatar').classList.replace('text-rose-700', 'text-indigo-200');
+document.getElementById('modal-body').classList.replace('prose-slate', 'prose-invert');
+document.getElementById('modal-body').classList.replace('prose-p:text-slate-700', 'prose-p:text-slate-300');
+document.getElementById('modal-body').classList.replace('prose-headings:text-slate-900', 'prose-headings:text-indigo-100');
+document.getElementById('modal-footer-link').classList.replace('bg-rose-50', 'bg-slate-800');
+document.getElementById('modal-footer-link').classList.replace('border-rose-100', 'border-slate-700');
+document.getElementById('modal-footer-btn').classList.replace('bg-rose-600', 'bg-indigo-500');
+} else {
+body.classList.remove('bg-[#0a0a0f]', 'text-slate-100', 'selection:bg-indigo-500', 'dark');
+body.classList.add('bg-[#fffbf7]', 'text-slate-900', 'selection:bg-rose-500');
+document.getElementById('nav-container').classList.replace('bg-slate-900/80', 'bg-white/80');
+document.getElementById('nav-container').classList.replace('border-slate-700/50', 'border-slate-200/50');
+document.getElementById('nav-container').classList.replace('text-slate-100', 'text-slate-800');
+document.getElementById('brand-logo').classList.replace('from-indigo-500', 'from-orange-500');
+document.getElementById('brand-logo').classList.replace('to-purple-600', 'to-rose-500');
+document.getElementById('brand-logo').classList.add('text-white');
+document.getElementById('lang-pill').classList.replace('bg-slate-800/50', 'bg-orange-50');
+document.getElementById('lang-pill').classList.replace('border-slate-700', 'border-orange-200');
+document.getElementById('lang-pill').classList.add('text-orange-600');
+themeToggle.classList.replace('bg-slate-800', 'bg-orange-100');
+themeToggle.classList.replace('text-yellow-400', 'text-orange-600');
+themeToggle.classList.replace('hover:bg-slate-700', 'hover:bg-orange-200');
+themeToggle.innerHTML = '<i data-lucide="moon" class="w-4 h-4"></i>';
+document.getElementById('hero-blob').classList.replace('bg-indigo-600', 'bg-rose-400');
+document.getElementById('hero-text-container').classList.replace('text-slate-100', 'text-slate-900');
+document.getElementById('welcome-badge').classList.replace('bg-indigo-950/30', 'bg-white');
+document.getElementById('welcome-badge').classList.replace('border-indigo-500/30', 'border-rose-200');
+document.getElementById('welcome-badge').classList.replace('text-indigo-300', 'text-rose-600');
+document.getElementById('hero-subtitle').classList.replace('text-slate-400', 'text-slate-600');
+document.getElementById('hero-line').classList.replace('bg-indigo-500', 'bg-rose-500');
+document.getElementById('footer').classList.replace('bg-[#050508]', 'bg-white');
+document.getElementById('footer').classList.replace('border-white/5', 'border-slate-100');
+document.getElementById('footer-line').classList.replace('via-indigo-500/50', 'via-rose-500/50');
+document.getElementById('footer-designed').classList.replace('text-indigo-400', 'text-rose-500');
+document.getElementById('modal-content').classList.replace('bg-slate-900', 'bg-[#fffbf7]');
+document.getElementById('modal-content').classList.replace('text-slate-100', 'text-slate-900');
+document.getElementById('modal-header').classList.replace('from-slate-900/90', 'from-white/90');
+document.getElementById('modal-close-btn').classList.replace('bg-white/10', 'bg-black/5');
+document.getElementById('modal-close-btn').classList.replace('text-white', 'text-black');
+document.getElementById('modal-close-btn').classList.replace('hover:bg-white/20', 'hover:bg-black/10');
+document.getElementById('modal-link-btn').classList.replace('bg-indigo-600', 'bg-rose-600');
+document.getElementById('modal-hero-overlay').classList.replace('from-slate-900', 'from-[#fffbf7]');
+document.getElementById('modal-category').classList.replace('bg-indigo-500', 'bg-rose-500');
+document.getElementById('modal-meta-border').classList.replace('border-slate-800', 'border-slate-200');
+document.getElementById('modal-avatar').classList.replace('bg-indigo-900', 'bg-rose-100');
+document.getElementById('modal-avatar').classList.replace('text-indigo-200', 'text-rose-700');
+document.getElementById('modal-body').classList.replace('prose-invert', 'prose-slate');
+document.getElementById('modal-body').classList.replace('prose-p:text-slate-300', 'prose-p:text-slate-700');
+document.getElementById('modal-body').classList.replace('prose-headings:text-indigo-100', 'prose-headings:text-slate-900');
+document.getElementById('modal-footer-link').classList.replace('bg-slate-800', 'bg-rose-50');
+document.getElementById('modal-footer-link').classList.replace('border-slate-700', 'border-rose-100');
+document.getElementById('modal-footer-btn').classList.replace('bg-indigo-500', 'bg-rose-600');
+}
+renderBlogCards();
+lucide.createIcons();
+}
+
+themeToggle.addEventListener('click', () => {
+theme = theme === 'dark' ? 'light' : 'dark';
+updateTheme();
+});
+
+// --- LANGUAGE LOGIC ---
+const texts = {
+welcome: { en: 'Welcome', hi: 'स्वागत हे', mr: 'स्वागत आहे' },
+heroTitle: { en: "The Tech Chronicles", hi: "तकनीकी इतिहास", mr: "तंत्रज्ञान गाथा" },
+heroSubtitle: { 
+en: "Welcome to Rushikesh's Blogs. A collection of my hackathons, learnings, and technological explorations.",
+hi: "ऋषिकेश के ब्लॉग में आपका स्वागत है। मेरे हैकथॉन, सीखने और तकनीकी अन्वेषणों का संग्रह।",
+mr: "ऋषिकेशच्या ब्लॉगवर आपले स्वागत आहे. माझे हॅकाथॉन, शिकवण आणि तांत्रिक शोधांचा संग्रह."
+},
+readStory: { en: 'Read Story', hi: 'कहानी पढ़ें', mr: 'कथा वाचा' }
+};
+
+function updateLang() {
+document.getElementById('welcome-text').innerText = texts.welcome[lang];
+document.getElementById('hero-title').innerText = texts.heroTitle[lang];
+document.getElementById('hero-subtitle').innerText = texts.heroSubtitle[lang];
+renderBlogCards();
+lucide.createIcons();
+}
+
+langSelect.addEventListener('change', (e) => {
+lang = e.target.value;
+updateLang();
+});
+
+// --- BLOG RENDERING ---
+function renderBlogCards() {
+blogGrid.innerHTML = blogData.map((post, index) => {
+const isDark = theme === 'dark';
+const cardBg = isDark ? 'bg-slate-900/40 border-white/5 shadow-black/50 hover:shadow-indigo-500/20' : 'bg-white border-rose-100 shadow-rose-200/40 hover:shadow-rose-500/20';
+const gradient = isDark ? 'from-slate-900 via-transparent' : 'from-rose-900/10 via-transparent';
+const categoryBg = isDark ? 'bg-indigo-500 text-white' : 'bg-white text-rose-900';
+const metaText = isDark ? 'text-slate-400' : 'text-slate-500';
+const titleColor = isDark ? 'text-slate-100 group-hover:text-indigo-300' : 'text-slate-900 group-hover:text-rose-600';
+const excerptColor = isDark ? 'text-slate-400' : 'text-slate-600';
+const readMoreColor = isDark ? 'text-indigo-400' : 'text-rose-600';
+
+return `
+<div onclick="openModal(${post.id})" class="group relative flex flex-col rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 h-full border shadow-xl ${cardBg}">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 z-10 bg-gradient-to-t ${gradient}"></div>
+<img src="${getImageUrl(post.imageKeyword)}" alt="${post.title[lang]}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+<div class="absolute top-4 left-4 z-20">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-md shadow-lg ${categoryBg}">${post.category}</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow relative">
+<div class="flex items-center gap-3 text-xs font-medium mb-3 uppercase tracking-wider ${metaText}">
+<span>${post.date}</span>
+<span class="w-1 h-1 rounded-full bg-current opacity-50"></span>
+<span>${post.readTime}</span>
+</div>
+<h3 class="text-xl font-serif font-bold leading-tight mb-3 transition-colors ${titleColor}">${post.title[lang]}</h3>
+<p class="text-sm leading-relaxed mb-6 line-clamp-3 ${excerptColor}">${post.excerpt[lang]}</p>
+<div class="mt-auto flex items-center text-xs font-bold uppercase tracking-widest transition-transform group-hover:translate-x-1 ${readMoreColor}">
+${texts.readStory[lang]} <i data-lucide="arrow-right" class="ml-2 w-3.5 h-3.5"></i>
+</div>
+</div>
+</div>
+`;
+}).join('');
+}
+
+// --- MODAL LOGIC ---
+function openModal(id) {
+const post = blogData.find(p => p.id === id);
+if (!post) return;
+
+currentBlogId = id; // Set current blog ID for heart and share
+
+document.getElementById('modal-hero-img').src = getImageUrl(post.imageKeyword);
+document.getElementById('modal-category').innerText = post.category;
+document.getElementById('modal-title').innerText = post.title[lang];
+document.getElementById('modal-date').innerText = post.date;
+document.getElementById('modal-body').innerText = post.content[lang];
+
+const linkBtn = document.getElementById('modal-link-btn');
+const footerLink = document.getElementById('modal-footer-link');
+const footerBtn = document.getElementById('modal-footer-btn');
+
+if (post.link) {
+linkBtn.classList.remove('hidden');
+linkBtn.classList.add('flex');
+linkBtn.href = post.link;
+footerLink.classList.remove('hidden');
+footerBtn.href = post.link;
+} else {
+linkBtn.classList.add('hidden');
+linkBtn.classList.remove('flex');
+footerLink.classList.add('hidden');
+}
+
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+body.classList.add('modal-open');
+updateHeartState(); // Update heart button state
+lucide.createIcons();
+}
+
+function closeModal() {
+modal.classList.add('hidden');
+modal.classList.remove('flex');
+body.classList.remove('modal-open');
+// Close share menu if open
+const shareMenu = document.getElementById('share-menu');
+if (shareMenu) shareMenu.classList.add('hidden');
+}
+
+function goHome() {
+window.location.href = '/';
+}
+
+// --- HEART FUNCTIONALITY ---
+let currentBlogId = null;
+let likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '{}');
+
+function toggleHeart() {
+if (!currentBlogId) return;
+
+const heartBtn = document.getElementById('heart-btn');
+const heartIcon = heartBtn.querySelector('[data-lucide="heart"]');
+
+if (likedBlogs[currentBlogId]) {
+// Unlike
+delete likedBlogs[currentBlogId];
+heartBtn.classList.remove('text-red-500', 'opacity-100');
+heartBtn.classList.add('opacity-50');
+heartIcon.classList.remove('fill-current');
+} else {
+// Like
+likedBlogs[currentBlogId] = true;
+heartBtn.classList.remove('opacity-50');
+heartBtn.classList.add('text-red-500', 'opacity-100');
+heartIcon.classList.add('fill-current');
+
+// Glow animation
+heartBtn.style.animation = 'heartGlow 0.5s ease-out';
+setTimeout(() => heartBtn.style.animation = '', 500);
+}
+
+localStorage.setItem('likedBlogs', JSON.stringify(likedBlogs));
+}
+
+function updateHeartState() {
+const heartBtn = document.getElementById('heart-btn');
+const heartIcon = heartBtn.querySelector('[data-lucide="heart"]');
+
+if (likedBlogs[currentBlogId]) {
+heartBtn.classList.remove('opacity-50');
+heartBtn.classList.add('text-red-500', 'opacity-100');
+heartIcon.classList.add('fill-current');
+} else {
+heartBtn.classList.remove('text-red-500', 'opacity-100');
+heartBtn.classList.add('opacity-50');
+heartIcon.classList.remove('fill-current');
+}
+}
+
+// --- SHARE FUNCTIONALITY ---
+function toggleShareMenu(event) {
+event.stopPropagation();
+const shareMenu = document.getElementById('share-menu');
+shareMenu.classList.toggle('hidden');
+}
+
+// Close share menu when clicking outside
+document.addEventListener('click', (e) => {
+const shareMenu = document.getElementById('share-menu');
+const shareBtn = document.getElementById('share-btn');
+if (!shareMenu.contains(e.target) && !shareBtn.contains(e.target)) {
+shareMenu.classList.add('hidden');
+}
+});
+
+function shareVia(method) {
+const post = blogData.find(p => p.id === currentBlogId);
+if (!post) return;
+
+const url = window.location.origin + window.location.pathname + '?blog=' + currentBlogId;
+const title = post.title[lang];
+const text = `Check out this blog: ${title}`;
+
+switch(method) {
+case 'whatsapp':
+window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+break;
+case 'email':
+window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text + '\n\n' + url)}`;
+break;
+case 'copy':
+navigator.clipboard.writeText(url).then(() => {
+// Show copied feedback
+const shareMenu = document.getElementById('share-menu');
+const originalHTML = shareMenu.innerHTML;
+shareMenu.innerHTML = '<p class="text-green-500 text-sm font-bold py-4 text-center">✓ Link Copied!</p>';
+setTimeout(() => {
+shareMenu.innerHTML = originalHTML;
+lucide.createIcons();
+}, 1500);
+});
+break;
+}
+
+// Close menu after action
+setTimeout(() => {
+document.getElementById('share-menu').classList.add('hidden');
+}, 100);
+}
+
+// --- INIT ---
+updateTheme();
+updateLang();
+</script>
+
+<style>
+@keyframes heartGlow {
+0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
+}
+</style>
+
+</body>
+</html>

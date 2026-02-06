@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rushikesh Munde - The Tech Chronicles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'in': 'fadeIn 0.3s ease-out',
+                        'zoom': 'zoomIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        zoomIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 20px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.5); }
+        .perspective-1000 { perspective: 1000px; }
+        body.modal-open { overflow: hidden; }
+    </style>
+</head>
+<body id="app-body" class="bg-[#0a0a0f] text-slate-100 selection:bg-indigo-500 transition-colors duration-500 min-h-screen relative overflow-x-hidden font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[90%] max-w-4xl">
+        <div id="nav-container" class="rounded-full px-6 py-3 flex justify-between items-center shadow-2xl border backdrop-blur-xl bg-slate-900/80 border-slate-700/50 text-slate-100 transition-all duration-500">
+            <div onclick="goHome()" class="flex items-center gap-3 cursor-pointer group">
+                <div id="brand-logo" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gradient-to-tr shadow-lg group-hover:rotate-12 transition-transform from-indigo-500 to-purple-600">R</div>
+                <span class="font-serif font-bold text-lg hidden sm:block tracking-wide">Rushikesh Munde</span>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div id="lang-pill" class="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border bg-slate-800/50 border-slate-700 transition-colors duration-500">
+                    <i data-lucide="languages" class="w-3.5 h-3.5"></i>
+                    <select id="lang-select" class="bg-transparent outline-none cursor-pointer text-center font-bold appearance-none">
+                        <option value="en" class="text-black">ENG</option>
+                        <option value="hi" class="text-black">HIN</option>
+                        <option value="mr" class="text-black">MAR</option>
+                    </select>
+                </div>
+                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full transition-all bg-slate-800 text-yellow-400 hover:bg-slate-700">
+                    <i data-lucide="sun" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative pt-32 pb-20 px-4 min-h-[85vh] flex items-center justify-center z-10 overflow-hidden">
+        <div id="hero-blob" class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 pointer-events-none bg-indigo-600 transition-colors duration-500"></div>
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left: Text -->
+            <div id="hero-text-container" class="space-y-8 text-center lg:text-left text-slate-100 transition-colors duration-500">
+                <div id="welcome-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] border shadow-sm bg-indigo-950/30 border-indigo-500/30 text-indigo-300 transition-all duration-500">
+                    <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                    <span id="welcome-text">Welcome</span>
+                </div>
+                <h1 id="hero-title" class="text-5xl sm:text-7xl font-serif font-bold leading-tight tracking-tight">The Tech Chronicles</h1>
+                <p id="hero-subtitle" class="text-xl font-light leading-relaxed max-w-lg mx-auto lg:mx-0 text-slate-400 transition-colors duration-500">
+                    Welcome to Rushikesh's Blogs. A collection of my hackathons, learnings, and technological explorations.
+                </p>
+                <div id="hero-line" class="h-1 w-24 rounded-full mx-auto lg:mx-0 bg-indigo-500 transition-colors duration-500"></div>
+            </div>
+            <!-- Right: Interactive Image -->
+            <div class="relative w-full max-w-lg mx-auto aspect-[4/3] perspective-1000 group cursor-pointer">
+                <div id="hero-card" class="relative w-full h-full rounded-3xl overflow-hidden transition-all duration-700 ease-out transform shadow-2xl group-hover:scale-105 group-hover:rotate-1">
+                    <!-- Image 1: ex1 -->
+                    <img src="/certificates/ex1.png.png" alt="Default" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-0">
+                    <!-- Image 2: ex2 -->
+                    <img src="/certificates/ex2.png.png" alt="Hover" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 relative z-10">
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog cards will be injected here via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="relative py-20 text-center overflow-hidden bg-[#050508] border-t border-white/5 transition-colors duration-500">
+        <div id="footer-line" class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent transition-colors duration-500"></div>
+        <h2 id="footer-bg-text" class="text-[10rem] font-bold opacity-5 leading-none pointer-events-none select-none absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-white transition-colors duration-500">RUSHIKESH</h2>
+        <div class="relative z-10">
+            <p id="footer-designed" class="text-sm tracking-widest uppercase mb-2 text-indigo-400 transition-colors duration-500">Designed & Developed by</p>
+            <p class="font-serif text-xl font-bold">Rushikesh Balaji Munde</p>
+            <p class="text-xs opacity-50 mt-4">© 2026 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Reading Modal -->
+    <div id="reading-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-0 sm:p-4 overflow-hidden">
+        <div id="modal-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div id="modal-content" class="relative w-full max-w-4xl h-[100vh] sm:h-[90vh] flex flex-col rounded-none sm:rounded-3xl shadow-2xl overflow-hidden animate-zoom bg-slate-900 text-slate-100">
+            <div id="modal-header" class="absolute top-0 left-0 right-0 p-4 z-50 flex justify-between items-start bg-gradient-to-b from-slate-900/90 to-transparent backdrop-blur-sm">
+                <button onclick="closeModal()" id="modal-close-btn" class="p-3 rounded-full backdrop-blur-md shadow-lg transition-transform hover:scale-110 bg-white/10 text-white hover:bg-white/20">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <a id="modal-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform bg-indigo-600 text-white">
+                    <i data-lucide="globe" class="w-4 h-4"></i> Open Project
+                </a>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scrollbar">
+                <div class="h-[40vh] sm:h-[50vh] relative w-full">
+                    <img id="modal-hero-img" src="" alt="Hero" class="w-full h-full object-cover">
+                    <div id="modal-hero-overlay" class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent"></div>
+                    <div class="absolute bottom-6 left-6 sm:left-12 right-6">
+                        <span id="modal-category" class="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-3 shadow-sm bg-indigo-500 text-white">Category</span>
+                        <h1 id="modal-title" class="text-3xl sm:text-5xl font-serif font-bold leading-tight drop-shadow-md">Title</h1>
+                    </div>
+                </div>
+                <div class="px-6 sm:px-12 py-10 max-w-3xl mx-auto">
+                    <div id="modal-meta-border" class="flex items-center justify-between border-b pb-6 mb-8 border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div id="modal-avatar" class="w-10 h-10 rounded-full flex items-center justify-center font-bold bg-indigo-900 text-indigo-200">RM</div>
+                            <div>
+                                <p class="font-bold text-sm">Rushikesh Munde</p>
+                                <p id="modal-date" class="text-xs opacity-60">Date</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="p-2 opacity-50 hover:opacity-100"><i data-lucide="share-2" class="w-4 h-4"></i></button>
+                            <button class="p-2 opacity-50 hover:opacity-100"><i data-lucide="heart" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                    <div id="modal-body" class="prose lg:prose-xl font-serif leading-loose whitespace-pre-line prose-invert prose-p:text-slate-300 prose-headings:text-indigo-100"></div>
+                    <div id="modal-footer-link" class="hidden mt-12 p-6 rounded-2xl border text-center bg-slate-800 border-slate-700">
+                        <p class="font-bold mb-4">Want to see it in action?</p>
+                        <a id="modal-footer-btn" href="#" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-indigo-500 text-white">
+                            <i data-lucide="globe" class="w-4 h-4"></i> Visit Project Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imageMap = {
+            hackathon: "/certificates/WhatsApp Image 2026-02-06 at 3.39.24 PM (1).jpeg",
+            relay: "/certificates/innoverse-code-relay-certificate.jpeg",
+            ai: "/certificates/oracle-certificate.jpeg",
+            glasses: "/certificates/WhatsApp Image 2026-02-06 at 3.38.42 PM.jpeg",
+            code: "/certificates/WhatsApp Image 2026-02-06 at 3.38.45 PM.jpeg",
+            art: "/certificates/WhatsApp Image 2026-02-06 at 3.38.43 PM.jpeg",
+            pi: "/certificates/WhatsApp Image 2026-02-06 at 3.38.44 PM (2).jpeg",
+            android: "/certificates/WhatsApp Image 2026-02-06 at 3.38.44 PM.jpeg",
+            penguin: "/certificates/WhatsApp Image 2026-02-06 at 3.38.47 PM (1).jpeg",
+            car_quote: "/certificates/WhatsApp Image 2026-02-06 at 3.38.47 PM.jpeg",
+            building: "/certificates/WhatsApp Image 2026-02-06 at 3.38.46 PM.jpeg",
+            exhibition: "/certificates/WhatsApp Image 2026-02-06 at 3.39.23 PM.jpeg",
+        };
+
+        const getImageUrl = (key) => imageMap[key] || "https://placehold.co/800x600";
+
+        const blogData = [
+            {
+                id: 1,
+                imageKeyword: "hackathon",
+                category: "Victory",
+                date: "Nov 20, 2025",
+                readTime: "4 min read",
+                title: { 
+                    en: "From Zero to 4th Rank: The Innoverse Hackathon Story", 
+                    hi: "शून्य से 4थी रैंक तक: इनोवर्स हैकथॉन की कहानी", 
+                    mr: "शून्यातून चौथ्या क्रमांकावर: इनोव्हर्स हॅकाथॉनची कथा" 
+                },
+                excerpt: { 
+                    en: "We entered as first-year students with zero experience. We left as winners. Here is the story of Team Lakshya.", 
+                    hi: "हमने बिना किसी अनुभव के प्रथम वर्ष के छात्रों के रूप में प्रवेश किया। हम विजेता बनकर निकले।", 
+                    mr: "आम्ही अनुभवाशिवाय प्रथम वर्षाचे विद्यार्थी म्हणून प्रवेश केला. आम्ही विजेते म्हणून बाहेर पडलो." 
+                },
+                content: { 
+                    en: "The energy at the Innoverse 2.0 Hackathon was electric. We were just first-semester students, standing amidst seniors with years of coding experience. The challenge? Build something impactful in just 6 hours.\\n\\nWe decided to build a Healthcare Website—a tool to help people remember their medication and analyze symptoms. We didn't have fancy tech stacks, but we had grit. We learned on the fly, debugging errors seconds before the deadline.\\n\\nWhen the judges announced \\"Team Lakshya\\" for the 4th Rank out of 37 teams, the cheering was deafening. It wasn't just a rank; it was validation that age doesn't matter in tech, only passion does.", 
+                    hi: "इनोवर्स 2.0 हैकथॉन में ऊर्जा बिजली जैसी थी। हम वरिष्ठ छात्रों के बीच खड़े थे। चुनौती? केवल 6 घंटे में कुछ प्रभावशाली बनाना। हमने एक हेल्थकेयर वेबसाइट बनाने का फैसला किया।", 
+                    mr: "इनोव्हर्स २.० हॅकाथॉनमधील ऊर्जा जबरदस्त होती. आम्ही सिनियर्सच्या गर्दीत उभे होतो. आव्हान? फक्त ६ तासांत काहीतरी परिणामकारक बनवणे. आम्ही हेल्थकेअर वेबसाइट बनवण्याचे ठरवले." 
+                }
+            },
+            {
+                id: 2,
+                imageKeyword: "exhibition",
+                category: "System Design",
+                date: "Feb 06, 2026",
+                readTime: "5 min read",
+                link: "https://rushikeshmunde22.github.io/whatsappproject.rm/",
+                title: { 
+                    en: "Bringing WhatsApp to Life: The 3D Architecture Model", 
+                    hi: "व्हाट्सएप को जीवंत बनाना: 3डी आर्किटेक्चर मॉडल", 
+                    mr: "व्हॉट्सॲपला जिवंत करणे: ३डी आर्किटेक्चर मॉडेल" 
+                },
+                excerpt: { 
+                    en: "How do you explain System Design without a computer? We built a physical 3D model of WhatsApp's backend using cardboard.", 
+                    hi: "आप कंप्यूटर के बिना सिस्टम डिज़ाइन की व्याख्या कैसे करते हैं? हमने कार्डबोर्ड का उपयोग करके व्हाट्सएप के बैकएंड का एक भौतिक 3डी मॉडल बनाया।", 
+                    mr: "तुम्ही कॉम्प्युटरशिवाय सिस्टम डिझाइन कसे समजावून सांगाल? आम्ही कार्डबोर्ड वापरून व्हॉट्सॲपच्या बॅकएंडचे भौतिक ३डी मॉडेल बनवले." 
+                },
+                content: { 
+                    en: "Most people use WhatsApp, but few know how it works. For our college exhibition, Team Lakshya decided to do something different. Instead of just a PowerPoint presentation, we built a physical \\"Engine Room\\" using cardboard and creativity.\\n\\nWe visualized the entire journey of a message:\\n1. **Local Encryption:** How the message locks on your phone.\\n2. **Server Queue:** How it travels through the cloud.\\n3. **Delivery:** How it reaches the recipient.\\n\\nWe even built a companion simulation website (click the link above to try it!) that shows the real-time status of a message. It was a perfect blend of physical craft and digital logic. Standing there explaining SSL/TLS encryption with a cardboard model to the judges was a moment of pure pride.", 
+                    hi: "ज़्यादातर लोग व्हाट्सएप इस्तेमाल करते हैं, लेकिन कम ही लोग जानते हैं कि यह कैसे काम करता है। हमारी कॉलेज प्रदर्शनी के लिए, टीम लक्ष्य ने कुछ अलग करने का फैसला किया। सिर्फ पावरपॉइंट प्रेजेंटेशन के बजाय, हमने कार्डबोर्ड का इस्तेमाल करके एक भौतिक \\"इंजन रूम\\" बनाया।", 
+                    mr: "बहुतेक लोक व्हॉट्सॲप वापरतात, पण ते कसे काम करते हे फार कमी लोकांना माहीत आहे. आमच्या कॉलेज प्रदर्शनासाठी, टीम लक्ष्याने काहीतरी वेगळे करण्याचा निर्णय घेतला. फक्त पॉवरपॉइंट प्रेझेंटेशनऐवजी, आम्ही कार्डबोर्ड वापरून एक भौतिक \\"इंजिन रूम\\" बनवले." 
+                }
+            },
+            {
+                id: 3,
+                imageKeyword: "penguin",
+                category: "Mindset",
+                date: "Feb 07, 2026",
+                readTime: "2 min read",
+                title: { 
+                    en: "Be Different: The Philosophy of Standing Out", 
+                    hi: "अलग बनो: भीड़ से अलग दिखने का दर्शन", 
+                    mr: "वेगळे व्हा: गर्दीतून वेगळे दिसण्याचे तत्वज्ञान" 
+                },
+                excerpt: { 
+                    en: "In a world full of copies, be the original. Why following the herd is the fastest way to mediocrity.", 
+                    hi: "प्रतियों से भरी दुनिया में, मूल बनें। भीड़ का अनुसरण करना औसत दर्जे का सबसे तेज़ तरीका क्यों है।", 
+                    mr: "प्रतिकांच्या जगात, मूळ बना. गर्दीच्या मागे जाणे हा सामान्यतेचा सर्वात वेगवान मार्ग का आहे." 
+                },
+                content: { 
+                    en: "I saw this image of a lone penguin standing away from the colony, staring at the vast emptiness. It struck a chord.\\n\\nIn engineering, it's easy to copy code. It's easy to follow the standard path. But the biggest breakthroughs come from those who dare to walk alone. Being \\"Different\\" isn't just about being weird; it's about thinking laterally. It's about asking \\"Why?\\" when everyone else is saying \\"Okay.\\"\\n\\nDon't be afraid to be the lone penguin. The view is better when you aren't staring at someone else's back.", 
+                    hi: "मैंने कॉलोनी से दूर खड़े एक अकेले पेंगुइन की यह छवि देखी। इसने दिल को छू लिया। इंजीनियरिंग में, कोड कॉपी करना आसान है। लेकिन सबसे बड़ी सफलताएं उन्हें मिलती हैं जो अकेले चलने की हिम्मत करते हैं।", 
+                    mr: "मी कॉलनीपासून दूर उभ्या असलेल्या एका एकाकी पेंग्विनची ही प्रतिमा पाहिली. याने मनाला स्पर्श केला. अभियांत्रिकीमध्ये, कोड कॉपी करणे सोपे आहे. पण सर्वात मोठी प्रगती त्यांनाच मिळते जे एकटे चालण्याचे धाडस करतात." 
+                }
+            },
