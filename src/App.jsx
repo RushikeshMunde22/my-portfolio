@@ -32,7 +32,7 @@ const RESUME_DATA = {
     }
   ],
   skills: {
-    languages: ["C", "HTML5", "CSS3", "JavaScript", "Python (Basic)"],
+    languages: ["C++", "C", "HTML", "CSS", "Java (Basic)", "Python (Basic)"],
     concepts: ["Data Structures", "OOPS", "Web Architecture", "DOM Manipulation"],
     tools: ["VS Code", "Git", "GitHub", "Gemini API", "Prompt Engineering"]
   },
@@ -96,9 +96,9 @@ const SEGMENT_HEIGHT = 800;
 // PRE-DEFINED Q&A DATABASE
 const QA_DATABASE = {
   // Skills and Technical Questions
-  "skills": "I have strong skills in Full Stack Development including C, HTML5, CSS3, JavaScript, and Python. I'm experienced with React, Node.js, and AI integration using APIs like Gemini.",
-  "what skills do you have": "I specialize in Full Stack Development with expertise in C, HTML5, CSS3, JavaScript, and Python. I also work with modern frameworks like React and have experience integrating AI APIs.",
-  "programming languages": "I'm proficient in C, HTML5, CSS3, JavaScript, and Python (Basic level). I also work with modern web technologies and frameworks.",
+  "skills": "I have strong skills in programming including C++, C, HTML, CSS, Java (Basic), and Python (Basic). I'm experienced with web development and AI integration.",
+  "what skills do you have": "I specialize in programming with expertise in C++, C, HTML, CSS, Java (Basic), and Python (Basic). I also work with modern web technologies and frameworks.",
+  "programming languages": "I'm proficient in C++, C, HTML, CSS, Java (Basic level), and Python (Basic level). I also work with modern web technologies and frameworks.",
   "technologies": "I work with VS Code, Git, GitHub, Gemini API, and focus on web architecture, DOM manipulation, and data structures using OOP concepts.",
   
   // Projects
