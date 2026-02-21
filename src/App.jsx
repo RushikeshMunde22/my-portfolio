@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Github, Linkedin, Mail, ExternalLink, Code, Moon, Sun, Menu, X, ArrowRight, Printer, Download, Phone, Flashlight, MessageCircle, Briefcase, Award, Maximize2, XCircle, ZoomIn, Send, User, MessageSquare, Sparkles, Loader2, Camera } from 'lucide-react';
 import PixelProfile from './PixelProfile.jsx';
 import SkillsSection from './CockpitSimulator.jsx';
@@ -38,33 +39,33 @@ const RESUME_DATA = {
   },
   projects: [
     {
-      title: "Veda AI",
-      status: "Amazon AI for Bharat",
-      desc: "AI tool to convert DR prescriptions into audio explanations in regional languages. Currently working on this research-based project.",
-      tags: ["Python", "Generative AI", "Speech API", "Regional Lang"],
+      title: "Veda AI - Healthcare Prescription Translation",
+      status: "Amazon AI for Bharat Research Project",
+      desc: "AI-powered tool converting doctor prescriptions into audio explanations in regional languages using Python, Generative AI, and Speech APIs. Research project for Amazon AI for Bharat initiative focused on healthcare accessibility.",
+      tags: ["Python", "Generative AI", "Speech API", "Healthcare AI"],
       link: "https://github.com/RushikeshMunde22/Veda-AI-Healthcare",
       github: "https://github.com/RushikeshMunde22/Veda-AI-Healthcare"
     },
     {
-      title: "Healthcare AI Platform (Codex App)",
-      status: "Inverse Hackathon Top 5",
-      desc: "Built a medical assistance platform integrating Google Gemini API for real-time symptom analysis. Led a team of 4 to develop the prototype in 24 hours.",
-      tags: ["HTML", "CSS", "Java", "Gemini API"],
+      title: "Health-Sathi Healthcare AI Platform",
+      status: "Inverse Hackathon Top 5 Winner",
+      desc: "Award-winning medical assistance platform integrating Google Gemini API for real-time symptom analysis. Led team of 4 developers to build this healthcare AI solution in 24 hours, securing Top 5 position in ZCOER Inverse Hackathon.",
+      tags: ["HTML", "CSS", "Java", "Gemini API", "Healthcare"],
       link: "https://github.com/ShardulDesai10/Codex-Hackathon-App",
       github: "https://github.com/ShardulDesai10/Codex-Hackathon-App"
     },
     {
-      title: "Interactive Exhibition Portfolio",
-      status: "Live Project",
-      desc: "Designed a highly interactive portfolio simulation mimicking the WhatsApp interface. Engineered a chatbot-style navigation system to showcase skills dynamically.",
-      tags: ["HTML5", "CSS3", "JavaScript", "DOM"],
+      title: "Interactive Portfolio with WhatsApp UI",
+      status: "Live Production Project",
+      desc: "Highly interactive portfolio website mimicking WhatsApp interface with chatbot-style navigation. Built with vanilla JavaScript, HTML5, and CSS3 showcasing DOM manipulation and modern web development skills.",
+      tags: ["HTML5", "CSS3", "JavaScript", "DOM Manipulation"],
       link: "https://rushikeshmunde22.github.io/whatsappproject.rm/",
       github: "https://github.com/RushikeshMunde22/whatsappproject.rm"
     },
     {
-      title: "Grampanchayat Digital Initiative",
-      status: "Deployed",
-      desc: "Developed official digital presence for Umarga Khojan village. A centralized hub for government schemes and local news.",
+      title: "Umarga Khojan Gram Panchayat Website",
+      status: "Deployed Government Project",
+      desc: "Official government website for Umarga Khojan village providing centralized access to government schemes and local news. Focus on accessibility and responsive design for rural communities.",
       tags: ["HTML", "CSS", "GovTech", "Accessibility"],
       link: "http://rushikeshmunde22.github.io/grampanchayat-umarga-khojan/",
       github: "https://github.com/RushikeshMunde22/grampanchayat-umarga-khojan"
@@ -404,7 +405,8 @@ const ProfilePhoto = ({ darkMode, mousePos }) => {
         {/* Day Photo */}
         <img 
           src="https://via.placeholder.com/300x400/CCCCCC/000000?text=Photo+With+Glasses"
-          alt="Rushikesh Day" 
+          alt="Rushikesh Munde - Full Stack Developer portrait during daytime" 
+          loading="lazy"
           className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-150 ${
             darkMode ? 'opacity-0' : 'opacity-100'
           }`}
@@ -413,7 +415,8 @@ const ProfilePhoto = ({ darkMode, mousePos }) => {
         {/* Night Photo */}
         <img 
           src="https://via.placeholder.com/300x400/111111/FFFFFF?text=Photo+No+Glasses"
-          alt="Rushikesh Night" 
+          alt="Rushikesh Munde - Computer Engineering student portrait at night" 
+          loading="lazy"
           className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-150 ${
             darkMode ? 'opacity-100' : 'opacity-0'
           }`}
@@ -836,7 +839,8 @@ const CertificateGallery = ({ onClose }) => {
               <div className="aspect-video bg-slate-200 dark:bg-slate-800 overflow-hidden">
                 <img 
                   src={cert.image} 
-                  alt={cert.title} 
+                  alt={`${cert.title} - Professional certification earned by Rushikesh Munde`}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => {
                     e.target.src = cert.fallback
@@ -1567,7 +1571,8 @@ const CertificateBook = () => {
                       <div className="w-full max-w-4xl aspect-[4/3] bg-white rounded-lg shadow-xl border-4 border-yellow-400 overflow-hidden mb-6">
                         <img 
                           src={certificates[currentPage].image}
-                          alt={certificates[currentPage].title}
+                          alt={`${certificates[currentPage].title} certificate - ${certificates[currentPage].issuer} - Earned by Rushikesh Munde in ${certificates[currentPage].date}`}
+                          loading="lazy"
                           className="w-full h-full object-contain"
                           onError={(e) => {
                             e.target.src = `https://via.placeholder.com/800x600/4F46E5/FFFFFF?text=${encodeURIComponent(certificates[currentPage].title.replace(/\s+/g, '+'))}`
@@ -1849,6 +1854,93 @@ export default function App() {
 
   return (
     <div className={`min-h-screen transition-colors duration-100 ${darkMode ? 'dark bg-slate-900' : 'bg-slate-50'}`}>
+      {/* SEO Meta Tags and Structured Data */}
+      <Helmet>
+        <title>Rushikesh Munde | Full Stack Developer & AI Expert | React, C, HTML/CSS</title>
+        <meta name="description" content="Computer Engineering student specializing in Full Stack Development and AI Integration. Top 5 Hackathon Finalist with expertise in React, C Programming, HTML/CSS, and AI APIs. Creator of Health-Sathi healthcare app and Veda AI project." />
+        
+        {/* JSON-LD Structured Data for Person */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Rushikesh Balaji Munde",
+            "url": "https://rushikeshmunde.in",
+            "image": "https://rushikeshmunde.in/og-image.jpg",
+            "jobTitle": "Full Stack Developer & AI Integration Specialist",
+            "worksFor": {
+              "@type": "EducationalOrganization",
+              "name": "Zeal College of Engineering, Pune"
+            },
+            "alumniOf": {
+              "@type": "EducationalOrganization",
+              "name": "Shri Shivaji Mahavidyalaya, Digras bk, Nanded"
+            },
+            "knowsAbout": ["React", "JavaScript", "C Programming", "HTML", "CSS", "Full Stack Development", "AI Integration", "Web Development", "Healthcare AI", "Machine Learning"],
+            "sameAs": [
+              "https://github.com/RushikeshMunde22",
+              "https://www.linkedin.com/in/munderushikesh/",
+              "https://rushikeshmunde22.github.io/"
+            ],
+            "email": "munderushikesh66@gmail.com",
+            "telephone": "+91-7720824756",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nanded / Pune",
+              "addressCountry": "India"
+            },
+            "award": [
+              "Top 5 Finalist - ZCOER Inverse 2.0 Hackathon (Healthcare Track)",
+              "Oracle Certified Foundations Associate",
+              "Code Relay Competition Team Leader"
+            ]
+          })}
+        </script>
+        
+        {/* JSON-LD Structured Data for Website */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Rushikesh Munde Portfolio",
+            "url": "https://rushikeshmunde.in",
+            "description": "Portfolio showcasing Full Stack Development projects, AI integration work, and technical achievements by Rushikesh Munde",
+            "author": {
+              "@type": "Person",
+              "name": "Rushikesh Balaji Munde"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://rushikeshmunde.in/?s={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
+        
+        {/* JSON-LD for Projects */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": RESUME_DATA.projects.map((project, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "CreativeWork",
+                "name": project.title,
+                "description": project.desc,
+                "url": project.link,
+                "author": {
+                  "@type": "Person",
+                  "name": "Rushikesh Balaji Munde"
+                },
+                "keywords": project.tags.join(", ")
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
+      
       <TorchEffect active={torchMode} />
 
       <button 
@@ -1963,11 +2055,11 @@ export default function App() {
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-tight animate-fade-in-up delay-100">
                 Full Stack <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Developer</span> & <br/>
-                AI Enthusiast
+                AI Integration Expert
               </h1>
 
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl lg:max-w-none leading-relaxed animate-fade-in-up delay-200">
-                Hi, I'm <strong className="text-slate-900 dark:text-white">Rushikesh</strong>. I build interactive web experiences and integrate AI models like Gemini to solve real-world problems.
+                Hi, I'm <strong className="text-slate-900 dark:text-white">Rushikesh Munde</strong>, a Computer Engineering student specializing in <strong>React development</strong>, <strong>C programming</strong>, and <strong>AI integration</strong>. I build interactive web experiences using modern technologies like React, HTML/CSS, and integrate AI models to solve real-world healthcare problems.
               </p>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 animate-fade-in-up delay-300">
@@ -2007,46 +2099,51 @@ export default function App() {
 
       <section id="projects" className="py-20 bg-slate-100 dark:bg-slate-900/50">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl text-indigo-600 dark:text-indigo-400">
-              <Code size={28} />
+          <header className="mb-12">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl text-indigo-600 dark:text-indigo-400">
+                <Code size={28} />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-100">Featured Projects: React, AI & Web Development</h2>
             </div>
-            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">My Work</h2>
-          </div>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">
+              Explore my portfolio of full stack development projects including <strong>Health-Sathi healthcare app</strong>, <strong>Veda AI</strong> for prescription translation, and the <strong>Umarga Khojan Gram Panchayat website</strong> for rural digitization.
+            </p>
+          </header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             <ProjectCard 
-              title="Veda AI"
-              desc="AI tool to convert DR prescriptions into audio explanations in regional languages. Currently working on this research-based project."
-              tags={["Python", "Generative AI", "Speech API", "Regional Lang"]}
+              title="Veda AI - Healthcare Prescription Translation"
+              desc="AI-powered tool converting doctor prescriptions into audio explanations in regional languages using Python, Generative AI, and Speech APIs. Research project for Amazon AI for Bharat initiative focused on healthcare accessibility."
+              tags={["Python", "Generative AI", "Speech API", "Healthcare AI"]}
               type="Amazon AI for Bharat"
               link="https://github.com/RushikeshMunde22/Veda-AI-Healthcare"
               github="https://github.com/RushikeshMunde22/Veda-AI-Healthcare"
             />
             
             <ProjectCard 
-              title="Healthcare AI (Codex App)"
-              desc="Built a medical assistance platform integrating Google Gemini API for real-time symptom analysis. Led a team of 4 to develop the prototype in 24 hours."
-              tags={["HTML", "CSS", "Java", "Gemini API"]}
+              title="Health-Sathi Healthcare AI Platform"
+              desc="Award-winning medical assistance platform integrating Google Gemini API for real-time symptom analysis. Led team of 4 developers to build this healthcare AI solution in 24 hours, securing Top 5 position in ZCOER Inverse Hackathon."
+              tags={["HTML", "CSS", "Java", "Gemini API", "Healthcare"]}
               type="Inverse Hackathon Top 5"
               link="https://github.com/ShardulDesai10/Codex-Hackathon-App"
               github="https://github.com/ShardulDesai10/Codex-Hackathon-App"
             />
             
             <ProjectCard 
-              title="Interactive Exhibition Portfolio"
-              desc="A highly interactive simulation mimicking the WhatsApp interface. Engineered a chatbot-style navigation system to showcase skills dynamically."
-              tags={["HTML5", "CSS3", "JavaScript", "DOM"]}
+              title="Interactive Portfolio with WhatsApp UI"
+              desc="Highly interactive portfolio website mimicking WhatsApp interface with chatbot-style navigation. Built with vanilla JavaScript, HTML5, and CSS3 showcasing DOM manipulation and modern web development skills."
+              tags={["HTML5", "CSS3", "JavaScript", "DOM Manipulation"]}
               type="Live Project"
               link="https://rushikeshmunde22.github.io/whatsappproject.rm/"
               github="https://github.com/RushikeshMunde22/whatsappproject.rm"
             />
             
             <ProjectCard 
-              title="Grampanchayat Digital Initiative"
-              desc="Official digital presence for Umarga Khojan village. A centralized hub for government schemes and local news."
+              title="Umarga Khojan Gram Panchayat Website"
+              desc="Official government website for Umarga Khojan village providing centralized access to government schemes and local news. Focus on accessibility and responsive design for rural communities."
               tags={["HTML", "CSS", "GovTech", "Accessibility"]}
-              type="Deployed"
+              type="Deployed Government Project"
               link="http://rushikeshmunde22.github.io/grampanchayat-umarga-khojan/"
               github="https://github.com/RushikeshMunde22/grampanchayat-umarga-khojan"
             />
@@ -2091,6 +2188,13 @@ export default function App() {
       </section>
 
       <section id="journey" className="relative min-h-[100vh] bg-slate-950 font-sans text-slate-200 overflow-hidden pb-20">
+        <header className="container mx-auto px-6 pt-20 pb-10 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">My Journey in Tech & Computer Engineering</h2>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            From HSC graduate to hackathon winner - follow my path through Computer Engineering, AI projects, and startup culture at Pune Cafe Club.
+          </p>
+        </header>
+        
         {/* Road Container */}
         <div className="relative w-full overflow-hidden" style={{ height: TOTAL_HEIGHT }}>
           <div className="absolute inset-0 pointer-events-none z-0 opacity-20" 
@@ -2125,10 +2229,10 @@ export default function App() {
 
       <section id="resume" className="py-20 bg-slate-100 dark:bg-slate-900/50">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-slate-800 dark:text-white">Interactive Resume</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-2">Print a copy of my credentials directly from your browser.</p>
-          </div>
+          <header className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-3">Download My Resume - Full Stack Developer</h2>
+            <p className="text-slate-600 dark:text-slate-400 mt-2 text-lg">View my credentials, skills in React, C Programming, HTML/CSS, and AI Integration experience.</p>
+          </header>
           <ResumePrinter />
         </div>
       </section>
@@ -2136,14 +2240,14 @@ export default function App() {
       {/* Certificate Book Section */}
       <section id="certificates" className="py-20 bg-white dark:bg-slate-800 relative z-20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <header className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-4">
-              My <span className="text-purple-600">Certificates</span>
+              Professional <span className="text-purple-600">Certifications & Awards</span>
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-              Explore my professional certifications and achievements through an interactive certificate book experience.
+              Oracle Certified Foundations Associate, INNOVERSE 2.0 Hackathon Winner, and Code Relay Competition achievements.
             </p>
-          </div>
+          </header>
           
           <div className="text-center">
             <CertificateBook />
@@ -2156,7 +2260,7 @@ export default function App() {
         darkMode ? 'bg-slate-900' : 'bg-slate-50'
       }`}>
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <header className="text-center mb-16">
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold mb-6 transition-all duration-500 ${
               darkMode 
                 ? 'bg-indigo-900/50 text-indigo-300 border border-indigo-700/50' 
@@ -2168,18 +2272,18 @@ export default function App() {
             <h2 className={`text-4xl md:text-5xl font-bold mb-4 transition-colors duration-500 ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}>
-              My <span className={`text-transparent bg-clip-text transition-all duration-500 ${
+              Hackathon & Event <span className={`text-transparent bg-clip-text transition-all duration-500 ${
                 darkMode 
                   ? 'bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400' 
                   : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600'
-              }`}>Memories</span> Gallery
+              }`}>Memories</span>
             </h2>
             <p className={`text-lg max-w-2xl mx-auto leading-relaxed transition-colors duration-500 ${
               darkMode ? 'text-slate-300' : 'text-slate-600'
             }`}>
-              Explore my journey through photos and videos captured during events, hackathons, and memorable moments.
+              Photos and videos from INNOVERSE 2.0 Hackathon, Code Relay Competition, and other tech events.
             </p>
-          </div>
+          </header>
           
           <CameraGallery darkMode={darkMode} />
         </div>
@@ -2188,13 +2292,13 @@ export default function App() {
       <footer id="contact" className="py-20 bg-white dark:bg-slate-900 relative border-t border-slate-100 dark:border-slate-800">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
+            <header className="text-center mb-12">
               <div className="inline-block p-4 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 mb-6">
                 <Briefcase size={32} />
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">Recruiters & Collaborators</h2>
-              <p className="text-xl text-slate-600 dark:text-slate-400">I am actively seeking internship opportunities where I can apply my Full Stack and AI skills. </p>
-            </div>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">Hire a Full Stack Developer</h2>
+              <p className="text-xl text-slate-600 dark:text-slate-400">Actively seeking internship opportunities in Full Stack Development, React, and AI Integration. Available for remote and on-site positions in Pune/Nanded.</p>
+            </header>
 
             <div className="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl">
               <div className="grid md:grid-cols-2 gap-12">
